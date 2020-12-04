@@ -6,7 +6,7 @@ void seed_random() {
   srandom(time(NULL));
 }
 
-float random_float() {
+double random_double() {
   long value = random();
-  return value / powf(2, 31);
+  return value / pow(2, 31);
 }

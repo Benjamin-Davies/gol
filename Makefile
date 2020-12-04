@@ -1,4 +1,4 @@
 all: golclear golrandom
 
-gol%: gol%.c gol.h
+gol%: gol%.c %.h
 	gcc $< -o $@
