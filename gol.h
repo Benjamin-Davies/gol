@@ -1,4 +1,5 @@
 #include <stdlib.h>
+#include <string.h>
 
 typedef struct {
   int cols;
@@ -35,6 +36,55 @@ grid_t new_grid(grid_size_t size) {
   }
   grid.str[len] = 0;
 
+  return grid;
+}
+
+char *read_all_stdin() {
+  char *str;
+  size_t read, len, allocated;
+  len = 0;
+  allocated = 1024;
+  str = malloc(allocated);
+
+  while ((read = fread(&str[len], 1, allocated - len, stdin))) {
+    len += read;
+    if (len + 1 < allocated) break;
+
+    allocated *= 2;
+    str = realloc(str, allocated);
+  }
+
+  str[len] = 0;
+  str = realloc(str, len + 1);
+  return str;
+}
+
+grid_size_t guess_grid_size(char *str) {
+  grid_size_t size;
+  size_t len;
+  int i;
+
+  len = strlen(str);
+  for (i = 0; i < len; i++) {
+    if (str[i] == '\n')
+      break;
+  }
+  size.cols = i;
+  size.rows = len / (i + 1);
+
+  return size;
+}
+
+grid_t read_grid() {
+  grid_t grid;
+  char *str;
+  grid_size_t size;
+
+  str = read_all_stdin();
+  size = guess_grid_size(str);
+
+  grid.size = size;
+  grid.str = str;
   return grid;
 }
 
