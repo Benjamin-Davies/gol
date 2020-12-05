@@ -92,7 +92,18 @@ void dispose_grid(grid_t grid) {
   free(grid.str);
 }
 
+char get_grid_cell(grid_t grid, int col, int row) {
+  if (col < 0 || col >= grid.size.cols ||
+      row < 0 || row >= grid.size.rows)
+    return ' ';
+  size_t index = grid_cell_index(grid.size, col, row);
+  return grid.str[index];
+}
+
 void set_grid_cell(grid_t grid, int col, int row, char value) {
+  if (col < 0 || col >= grid.size.cols ||
+      row < 0 || row >= grid.size.rows)
+    return;
   size_t index = grid_cell_index(grid.size, col, row);
   grid.str[index] = value;
 }
