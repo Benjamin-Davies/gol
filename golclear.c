@@ -7,8 +7,8 @@ int main(int argc, char **argv) {
   grid_t grid;
   
   if (!(argc == 2 && read_grid_size(argv[1], &size))) {
-    printf("usage: %s WIDTHxHEIGHT\n", argv[0]);
-    return 1;
+    fprintf(stderr, "usage: %s WIDTHxHEIGHT\n", argv[0]);
+    exit(1);
   }
 
   grid = new_grid(size);
