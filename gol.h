@@ -119,3 +119,41 @@ void fill_grid(grid_t grid, char value) {
 void print_grid(grid_t grid) {
   printf("%s", grid.str);
 }
+
+void fprint_grid(grid_t grid, FILE *file) {
+  fprintf(file, "%s", grid.str);
+}
+
+int grid_count_neighboors(grid_t grid, int col, int row) {
+  int count;
+  count = 0;
+  if (get_grid_cell(grid, col+1, row  ) != ' ') count++;
+  if (get_grid_cell(grid, col+1, row+1) != ' ') count++;
+  if (get_grid_cell(grid, col  , row+1) != ' ') count++;
+  if (get_grid_cell(grid, col-1, row+1) != ' ') count++;
+  if (get_grid_cell(grid, col-1, row  ) != ' ') count++;
+  if (get_grid_cell(grid, col-1, row-1) != ' ') count++;
+  if (get_grid_cell(grid, col  , row-1) != ' ') count++;
+  if (get_grid_cell(grid, col+1, row-1) != ' ') count++;
+  return count;
+}
+
+void step_grid(grid_t source_grid, grid_t dest_grid) {
+  char value;
+  int i, j, neighboors, self;
+
+  for (i = 0; i < source_grid.size.rows; i++) {
+    for (j = 0; j < source_grid.size.cols; j++) {
+      neighboors = grid_count_neighboors(source_grid, j, i);
+      self = get_grid_cell(source_grid, j, i) != ' ';
+      if (self)
+        value = (neighboors == 2 || neighboors == 3)
+          ? 'x' : ' ';
+      else
+        value = neighboors == 3
+          ? 'x' : ' ';
+      set_grid_cell(dest_grid, j, i, value);
+    }
+  }
+}
+

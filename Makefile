@@ -1,4 +1,4 @@
-all: golclear golrandom golstep
+all: golclear golrandom golstep golrun
 
 golclear: golclear.c gol.h
 	cc $< -o $@
@@ -9,6 +9,9 @@ golrandom: golrandom.c gol.h random.h
 golstep: golstep.c gol.h
 	cc $< -o $@
 
+golrun: golrun.c gol.h
+	cc $< -o $@
+
 .PHONY: clean
 clean:
-	rm -f golclear golrandom golstep
+	rm -f golclear golrandom golstep golrun
