@@ -16,8 +16,8 @@ golstep: golstep.c gol.h
 golrun: golrun.c gol.h
 	cc $< -o $@
 
-gol.1: gol.1.md
-	pandoc --standalone --to man gol.1.md -o gol.1
+gol.1: README.md
+	pandoc --standalone --to man README.md -o gol.1
 
 clean:
 	rm -f $(PROGRAMS) gol.1
