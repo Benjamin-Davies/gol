@@ -23,11 +23,9 @@ clean:
 	rm -f $(PROGRAMS) gol.1
 
 install: all gol.1
-	mkdir -p $(PREFIX)/bin
-	cp $(PROGRAMS) $(PREFIX)/bin/
-	mkdir -p $(PREFIX)/share/man/man1
-	cp gol.1 $(PREFIX)/share/man/man1/gol.1
+	install -D -m 644 gol.1 $(PREFIX)/share/man/man1/gol.1
 	for prog in $(PROGRAMS); do \
+		install -D $$prog $(PREFIX)/bin/$$prog; \
 		ln -sf gol.1 $(PREFIX)/share/man/man1/$$prog.1; \
 	done
 
