@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <termios.h>
 #include <unistd.h>
-#include <sys/time.h>
+#include <time.h>
 #include <fcntl.h>
 
 #include "gol.h"
